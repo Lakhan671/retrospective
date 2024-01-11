@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "ad200dad-0e4d-4c0c-8fa0-c3b0593afc7e",
+		"name": "sis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/retrospectives",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Sprint2\",\r\n  \"summary\": \"Successful completion of the first sprint\",\r\n  \"date\": \"2024-01-10\",\r\n  \"participants\": [\"Alice\", \"Bob\", \"Charlie\"]\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/retrospectives",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"retrospectives"
+					]
+				},
+				"description": "Add retrospectives"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/retrospectives/1/feedback",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"feedbackProvider\": \"Lakhan Singh\",\r\n  \"body\": \"Great collaboration within the team\",\r\n  \"feedbackType\": \"POSITIVE\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/retrospectives/1/feedback",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"retrospectives",
+						"1",
+						"feedback"
+					]
+				},
+				"description": "add feedback"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/retrospectives/feedback/8",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "body",
+							"value": "Improved communication among team members",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "feedbackType",
+							"value": "NEGATIVE",
+							"type": "text",
+							"description": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/retrospectives/feedback/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"retrospectives",
+						"feedback",
+						"8"
+					]
+				},
+				"description": "update feedback"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/retrospectives/search?date=2024-01-10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/retrospectives/search?date=2024-01-10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"retrospectives",
+						"search"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2024-01-10"
+						}
+					]
+				},
+				"description": "search"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/retrospectives/search?date=2024-01-09&pageSize=5&page=0",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/retrospectives/search?date=2024-01-09&pageSize=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"retrospectives",
+						"search"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2024-01-09"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

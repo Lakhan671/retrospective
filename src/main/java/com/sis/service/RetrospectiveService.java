@@ -14,14 +14,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 @Slf4j
 public class RetrospectiveService {
 
-    private RetrospectiveRepository retrospectiveRepository;
-    private FeedbackItemRepository feedbackItemRepository;
+    private final RetrospectiveRepository retrospectiveRepository;
+    private final FeedbackItemRepository feedbackItemRepository;
 
     public Retrospective createRetrospective(Retrospective retrospective) {
         log.info("Received request to create a new retrospective: {}", retrospective);
@@ -32,6 +31,7 @@ public class RetrospectiveService {
                     log.error("Failed to create retrospective. Date and Participants are required");
                     return new IllegalArgumentException("Date and Participants are required");
                 });
+
         Retrospective createdRetrospective = Optional.of(retrospective)
                 .map(retrospectiveRepository::save)
                 .orElseThrow(() -> {
@@ -52,18 +52,23 @@ public class RetrospectiveService {
                     log.error("Failed to add feedback item. Retrospective not found with ID: {}", retrospectiveId);
                     return new EntityNotFoundException("Retrospective not found with ID: " + retrospectiveId);
                 });
+
         feedbackItem.setRetrospective(retrospective);
+
         FeedbackItem addedFeedbackItem = Optional.of(feedbackItem)
                 .map(feedbackItemRepository::save)
                 .orElseThrow(() -> {
                     log.error("Failed to add feedback item.");
                     return new RuntimeException("Failed to add feedback item.");
                 });
+
         log.info("Feedback item added successfully. ID: {}", addedFeedbackItem.getId());
         return addedFeedbackItem;
     }
+
     public FeedbackItem updateFeedbackItem(Long feedbackItemId, String body, FeedbackType feedbackType) {
         log.info("Received request to update feedback item with ID: {}", feedbackItemId);
+
         FeedbackItem updatedFeedbackItem = Optional.of(feedbackItemId)
                 .map(this::getFeedbackItemById)
                 .map(item -> {
